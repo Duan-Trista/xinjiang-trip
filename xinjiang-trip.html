@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>新疆婚纱旅拍 · 自驾行程</title>
+<style>
+  :root {
+    --c0: #000;
+    --c1: #1a1a1a;
+    --c2: #333;
+    --c3: #666;
+    --c4: #999;
+    --c5: #d4d4d4;
+    --c6: #e8e8e8;
+    --c7: #f5f5f5;
+    --c8: #fafafa;
+    --cw: #fff;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html {
+    scroll-behavior: smooth;
+    overscroll-behavior: none;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--cw);
+    color: var(--c1);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    padding-bottom: var(--safe-bottom);
+  }
+
+  /* Header */
+  .head-wrap {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--cw);
+    border-bottom: 0.5px solid var(--c6);
+  }
+  .header {
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: calc(12px + var(--safe-top)) 16px 10px;
+  }
+  .header h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.2px; }
+  .header .sub { font-size: 11px; color: var(--c4); margin-top: 2px; line-height: 1.4; }
+
+  /* Stats */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    padding: 12px 16px; gap: 8px;
+    background: var(--cw);
+  }
+  .stat { text-align: center; }
+  .stat .num { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+  .stat .lbl { font-size: 10px; color: var(--c4); margin-top: 2px; }
+
+  /* Route strip */
+  .route {
+    padding: 10px 16px; margin: 0 16px; border-radius: 8px;
+    background: var(--c7); overflow-x: auto; white-space: nowrap;
+    font-size: 12px; color: var(--c3);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .route::-webkit-scrollbar { display: none; }
+  .route .r { font-weight: 600; color: var(--c1); }
+  .route .sep { color: var(--c5); margin: 0 3px; }
+
+  /* Tab nav */
+  .tab-nav {
+    display: flex;
+    background: var(--cw);
+    padding: 0 8px; gap: 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tab-nav::-webkit-scrollbar { display: none; }
+  .tab-nav button {
+    flex-shrink: 0; padding: 11px 14px; font-size: 14px; font-weight: 500;
+    cursor: pointer; border: none; background: none; color: var(--c4);
+    border-bottom: 2px solid transparent; transition: all 0.15s;
+    white-space: nowrap; touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .tab-nav button:active { opacity: 0.5; }
+  .tab-nav button.active { color: var(--c1); border-bottom-color: var(--c1); font-weight: 600; }
+  .tab-panel { display: none; padding: 0 16px 24px; }
+  .tab-panel.active { display: block; }
+
+  /* Day card */
+  .day-card {
+    border: 0.5px solid var(--c6); border-radius: 10px; padding: 14px 16px;
+    margin-bottom: 8px;
+  }
+  .day-card .dhead {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 4px;
+  }
+  .day-card .dnum { font-size: 16px; font-weight: 700; }
+  .day-card .ddate { font-size: 12px; color: var(--c4); }
+  .day-card .dtitle { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .day-card .dinfo { font-size: 14px; color: var(--c3); line-height: 1.55; }
+  .day-card .dwarn { font-size: 12px; color: #b91c1c; margin-top: 6px; line-height: 1.5; }
+  .day-tag {
+    display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.2px;
+    padding: 3px 8px; border-radius: 5px; margin-top: 8px;
+    border: 0.5px solid var(--c5);
+  }
+  .tag-done { color: #166534; }
+  .tag-warn { color: #92400e; }
+  .tag-hot { color: var(--c1); border-color: var(--c1); }
+  .tag-train { color: var(--c3); }
+
+  /* Section subtitle */
+  .sec-subtitle { font-size: 15px; font-weight: 600; margin: 16px 0 8px; color: var(--c2); }
+
+  /* Packing */
+  .pack-box {
+    border: 0.5px solid var(--c6); border-radius: 10px; padding: 14px 16px; margin-bottom: 8px;
+  }
+  .pack-box h4 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .pack-box ul { list-style: none; font-size: 14px; color: var(--c3); }
+  .pack-box li { padding: 3.5px 0; }
+  .pack-box li b { color: var(--c1); }
+
+  /* Todo */
+  .todo-group { margin-bottom: 16px; }
+  .todo-group h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: var(--c2); }
+  .todo-item {
+    display: flex; align-items: flex-start; gap: 12px; padding: 10px 0;
+    border-bottom: 0.5px solid var(--c7); font-size: 14px; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    min-height: 44px;
+  }
+  .todo-item:last-child { border-bottom: none; }
+  .todo-cb {
+    flex: 0 0 22px; height: 22px; border: 1.5px solid var(--c5); border-radius: 6px;
+    margin-top: 0px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .todo-cb.done { background: var(--c1); border-color: var(--c1); }
+  .todo-cb.done::after { content: '✓'; color: var(--cw); font-size: 13px; font-weight: 700; }
+
+  /* Bookings */
+  .bk-row {
+    display: flex; padding: 10px 0; border-bottom: 0.5px solid var(--c7);
+    font-size: 14px; align-items: flex-start; gap: 8px;
+  }
+  .bk-row .bk-label { flex: 0 0 68px; font-weight: 600; color: var(--c2); }
+  .bk-row .bk-val { flex: 1; color: var(--c3); }
+  .bk-status { font-size: 11px; font-weight: 600; }
+  .bk-status.ok { color: #166534; }
+  .bk-status.wait { color: #92400e; }
+
+  /* Alert */
+  .alert {
+    border: 0.5px solid var(--c6); border-left: 3px solid var(--c1);
+    border-radius: 8px; padding: 12px 14px; margin-bottom: 8px;
+    font-size: 13px; color: var(--c3); line-height: 1.55;
+  }
+  .alert strong { color: var(--c1); }
+
+  /* Booking card */
+  .bk-card {
+    border: 0.5px solid var(--c6); border-radius: 10px; padding: 14px 16px;
+    margin-bottom: 8px; font-size: 14px; color: var(--c3); line-height: 1.6;
+  }
+  .bk-card b { color: var(--c1); }
+</style>
+</head>
+<body>
+
+<div class="head-wrap">
+<div class="header">
+  <h1>新疆婚纱旅拍 · 自驾行程</h1>
+  <div class="sub">上海 → 伊犁 → 独库 → 南疆 → 帕米尔 → 喀什 → 乌鲁木齐 → 上海 &nbsp;·&nbsp; 9.23 – 10.5</div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="num">13</div><div class="lbl">天总行程</div></div>
+  <div class="stat"><div class="num">2,350</div><div class="lbl">自驾公里</div></div>
+  <div class="stat"><div class="num">11+2</div><div class="lbl">酒店+火车</div></div>
+  <div class="stat"><div class="num">12</div><div class="lbl">途经城镇</div></div>
+</div>
+
+<div class="route">
+  <span class="r">上海虹桥</span><span class="sep">→</span>郑州东<span class="sep">→</span>伊宁机场<span class="sep">→</span><span class="r">清水河</span><span class="sep">→</span>那拉提<span class="sep">→</span>巴音布鲁克<span class="sep">→</span>库车<span class="sep">→</span>阿克苏<span class="sep">→</span><span class="r">喀什</span><span class="sep">→</span>塔县·帕米尔<span class="sep">→</span>喀什还车<span class="sep">→</span>乌鲁木齐<span class="sep">→</span><span class="r">上海</span>
+</div>
+
+<div class="tab-nav">
+  <button class="active" data-tab="itinerary">逐日行程</button>
+  <button data-tab="packing">必带物品</button>
+  <button data-tab="todo">待办清单</button>
+  <button data-tab="bookings">已订票务</button>
+  <button data-tab="reminders">关键提醒</button>
+</div>
+</div>
+
+<!-- Itinerary -->
+<div class="tab-panel active" id="tab-itinerary">
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 1</div><div class="ddate">9/23 周三</div></div>
+    <div class="dtitle">上海 → 郑州</div>
+    <div class="dinfo">19:05 上海虹桥 → 22:54 郑州东（G84 高铁，3h49m）。打车/接送机至新郑机场周边住宿。</div>
+    <div class="day-tag tag-warn">待订 · 郑州机场酒店</div>
+  </div>
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 2</div><div class="ddate">9/24 周四</div></div>
+    <div class="dtitle">郑州 → 伊宁 · 取车 · 选纱</div>
+    <div class="dinfo">07:30 新郑机场起飞 → 12:40 抵伊宁机场（9C7151，5h10m）。13:00 伊宁机场取车（哈啰·哈弗H6）。13:40 驾车 40min 到清水河镇。14:30 到<b>知野旅拍</b>选纱。<br>📍 霍城县清水河镇上城一品静心院10号103-104</div>
+    <div class="day-tag tag-done">已订 · 云朵酒店（上城一品16栋1层）</div>
+  </div>
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 3</div><div class="ddate">9/25 周五</div></div>
+    <div class="dtitle">库尔德宁拍摄日</div>
+    <div class="dinfo">06:30 到店化妆。08:00 出发，驾车 3h → 11:00 到<b>库尔德宁景区</b>（巩留县）。11:00–19:00 全天拍摄。19:00 返程，驾车 3h → 22:00 回酒店。<br>携带：两人身份证、胸贴、黑白船袜、黑皮鞋、防晒霜</div>
+    <div class="day-tag tag-done">已订 · 云朵酒店</div>
+  </div>
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 4</div><div class="ddate">9/26 周六</div></div>
+    <div class="dtitle">选片 → 那拉提</div>
+    <div class="dinfo">09:00 到知野旅拍<b>选片</b>。12:00 清水河午餐。13:00 出发，沿 G218 驾车 4h → 17:00 到<b>那拉提镇</b>。🚗 约 280km。</div>
+    <div class="day-tag tag-warn">待订 · 那拉提镇</div>
+  </div>
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 5</div><div class="ddate">9/27 周日</div></div>
+    <div class="dtitle">那拉提草原 → 巴音布鲁克</div>
+    <div class="dinfo">09:00 进<b>那拉提草原</b>（空中草原 / 河谷草原）。14:00 出发，驾车 2h → 16:00 到<b>巴音布鲁克草原</b>。18:00 进景区看九曲十八弯日落（约 20:00），注意保暖。🚗 约 80km。</div>
+    <div class="day-tag tag-warn">待订 · 巴音布鲁克镇</div>
+  </div>
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 6</div><div class="ddate">9/28 周一</div></div>
+    <div class="dtitle">独库公路南段 → 库车</div>
+    <div class="dinfo">08:00 出发，走 G217 独库公路南段。沿途：铁力买提达坂、<b>大小龙池</b>。13:00 到库车。14:00–16:00 逛<b>天山神秘大峡谷</b>。🚗 约 260km，行车 5h。</div>
+    <div class="dwarn">⚠ 出发前查独库公路开放公告。若封闭：巴音布鲁克→和静→库尔勒→库车（G218+G3012，多约 2.5h）</div>
+    <div class="day-tag tag-warn">待订 · 库车</div>
+  </div>
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 7</div><div class="ddate">9/29 周二</div></div>
+    <div class="dtitle">库车 → 阿克苏</div>
+    <div class="dinfo">09:00 <b>库车老城</b>（库车王府、热斯坦路）。11:00 出发，驾车 1h → 12:00 <b>克孜尔千佛洞</b>（游览 1h）。13:00 出发，驾车 2h → 15:00 <b>温宿大峡谷</b>（游览 2h）。17:00 出发，驾车 1h → 18:00 到阿克苏。🚗 约 300km。</div>
+    <div class="day-tag tag-warn">待订 · 阿克苏/温宿</div>
+  </div>
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 8</div><div class="ddate">9/30 周三</div></div>
+    <div class="dtitle">阿克苏 → 喀什</div>
+    <div class="dinfo">08:00 出发，吐和高速 G3012 驾车 5h → 13:00 到<b>喀什</b>。入住后逛<b>喀什古城</b>（开城仪式、百年老茶馆、汗巴扎夜市）。🚗 约 460km。</div>
+    <div class="day-tag tag-hot">待订 · 喀什古城附近</div>
+  </div>
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 9</div><div class="ddate">10/1 周四</div></div>
+    <div class="dtitle">帕米尔高原 Day 1</div>
+    <div class="dinfo">08:00 喀什出发，沿 G314 中巴公路。10:00 奥依塔克红山。11:00 <b>白沙湖</b>（游览 1h）。13:00 <b>喀拉库勒湖</b>（慕士塔格峰倒影，游览 1h）。16:00 到<b>塔县</b>（石头城、金草滩日落 20:00）。🚗 约 290km，行车 5–6h。</div>
+    <div class="dwarn">⚠ 需边防证！目的地填：塔什库尔干塔吉克自治县、克孜勒苏柯尔克孜自治州阿克陶县</div>
+    <div class="day-tag tag-hot">待订 · 塔县（国庆紧张）</div>
+  </div>
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 10</div><div class="ddate">10/2 周五</div></div>
+    <div class="dtitle">帕米尔高原 Day 2</div>
+    <div class="dinfo">09:00 出发。10:00–12:00 <b>盘龙古道</b>（"今日走过了所有弯路，从此人生尽是坦途"）。12:00 瓦罕走廊入口（可选）。13:00 返程，驾车 5h → 18:00 回到喀什。🚗 约 290km。</div>
+    <div class="day-tag tag-warn">待订 · 喀什</div>
+  </div>
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 11</div><div class="ddate">10/3 周六</div></div>
+    <div class="dtitle">喀什古城全天</div>
+    <div class="dinfo">10:00 艾提尕尔清真寺 → 高台民居 → 职人巴扎 → 网红机位拍照 → 买干果特产。全天步行，无需开车。</div>
+    <div class="day-tag tag-warn">待订 · 喀什</div>
+  </div>
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 12</div><div class="ddate">10/4 周日</div></div>
+    <div class="dtitle">还车 → 火车</div>
+    <div class="dinfo">上午古城自由活动。12:00 开车到喀什站。<b>13:00 还车</b>（哈啰上门取车）。打车回古城午餐闲逛。19:00 前回喀什站。21:30 Z6518 发车 → 乌鲁木齐（次日 09:02 到，11h32m）。</div>
+    <div class="day-tag tag-train">火车 · Z6518 喀什 21:30 → 乌市 09:02</div>
+  </div>
+
+  <div class="day-card">
+    <div class="dhead"><div class="dnum">Day 13</div><div class="ddate">10/5 周一</div></div>
+    <div class="dtitle">乌鲁木齐 → 上海</div>
+    <div class="dinfo"><b>09:02 到乌鲁木齐</b>。寄存行李。12:00 中午<b>陪妈妈吃饭</b>。14:00–17:00 可逛国际大巴扎。18:30 前到乌鲁木齐站。19:35 Z42 发车 → 上海（10/7 12:15 到，40h40m）。</div>
+    <div class="day-tag tag-train">火车 · Z42 乌市 19:35 → 上海 10/7 12:15</div>
+  </div>
+
+</div>
+
+<!-- Packing -->
+<div class="tab-panel" id="tab-packing">
+
+  <div class="pack-box">
+    <h4>证件票务</h4>
+    <ul>
+      <li>两人身份证（拍摄当天必备）</li>
+      <li>两人驾驶证原件</li>
+      <li>边防证（两人）</li>
+      <li>火车票/机票订单</li>
+      <li>银行卡 + 现金 500–1000 元</li>
+    </ul>
+  </div>
+  <div class="pack-box">
+    <h4>婚纱拍摄 · Tri</h4>
+    <ul>
+      <li><b>裸色胸贴</b>（必带）</li>
+      <li>美瞳（灰/咖色）</li>
+      <li>简单美甲（提前做好）</li>
+      <li>高跟鞋（可选）</li>
+      <li>自用彩妆和配饰</li>
+      <li>高倍防晒霜/喷雾</li>
+      <li>提前一周每天敷面膜</li>
+      <li>发色两截→提前染（板栗/咖色）</li>
+      <li>拍摄当天早上只擦水</li>
+    </ul>
+  </div>
+  <div class="pack-box">
+    <h4>婚纱拍摄 · Jill</h4>
+    <ul>
+      <li>黑白船袜各一双</li>
+      <li><b>黑皮鞋</b>（尽量带自己的）</li>
+      <li>隐形眼镜或无镜片镜框</li>
+      <li>提前一周理发</li>
+      <li>当天头发洗净不喷发胶</li>
+      <li>刮胡子、修鼻毛</li>
+    </ul>
+  </div>
+  <div class="pack-box">
+    <h4>衣物（温差大）</h4>
+    <ul>
+      <li><b>冲锋衣/薄羽绒服</b>（必带）</li>
+      <li>保暖内衣</li>
+      <li>秋装长袖长裤</li>
+      <li>舒适运动鞋/徒步鞋</li>
+      <li>围巾/披肩</li>
+      <li>帽子</li>
+      <li>内衣裤、袜子多双</li>
+      <li>睡衣</li>
+      <li>古城拍照便装 1–2 套</li>
+    </ul>
+  </div>
+  <div class="pack-box">
+    <h4>护肤防晒</h4>
+    <ul>
+      <li>SPF50+ 防晒霜/喷雾</li>
+      <li>补水面膜</li>
+      <li><b>润唇膏</b>（必带）</li>
+      <li>保湿霜/身体乳</li>
+      <li>护手霜</li>
+      <li>墨镜</li>
+      <li>湿巾纸巾</li>
+    </ul>
+  </div>
+  <div class="pack-box">
+    <h4>药品</h4>
+    <ul>
+      <li>感冒药、退烧药（布洛芬）</li>
+      <li>肠胃药</li>
+      <li>晕车药</li>
+      <li>创可贴、碘伏棉签</li>
+      <li>润喉糖</li>
+      <li><b>便携氧气瓶×2</b>（到喀什买）</li>
+    </ul>
+  </div>
+  <div class="pack-box">
+    <h4>电子设备</h4>
+    <ul>
+      <li>手机 + 充电器</li>
+      <li>充电宝（20000mAh）</li>
+      <li>车载充电器 + 数据线</li>
+      <li>相机/自拍杆（可选）</li>
+      <li>耳机</li>
+    </ul>
+  </div>
+  <div class="pack-box">
+    <h4>自驾</h4>
+    <ul>
+      <li>手机离线地图（高德/百度）</li>
+      <li>车载手机支架</li>
+      <li>保温杯</li>
+      <li>零食 + 整箱矿泉水</li>
+      <li>取车检查：胎压、备胎、油量、ETC、行车记录仪</li>
+    </ul>
+  </div>
+  <div class="pack-box">
+    <h4>日用品</h4>
+    <ul>
+      <li>洗漱用品、毛巾</li>
+      <li>折叠伞/轻便雨衣</li>
+      <li>密封袋</li>
+      <li>拍摄当天不带金银首饰和现金</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- Todo -->
+<div class="tab-panel" id="tab-todo">
+
+  <div class="alert">
+    <strong>火车票候补是最大风险</strong> — Z6518、Z42 候补中。如失败：Z42 改订乌市飞上海航班；Z6518 改订喀什飞乌市航班。
+  </div>
+
+  <div class="todo-group">
+    <h4>紧急</h4>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb done"></div>G84 高铁已出票（9/23 上海→郑州）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>确认 Z6518 出票（10/4 喀什→乌鲁木齐）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>确认 Z42 出票（10/5 乌鲁木齐→上海）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>订 9/23 郑州机场附近酒店</div>
+  </div>
+
+  <div class="todo-group">
+    <h4>本周内完成</h4>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>订那拉提酒店（9/26）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>订巴音布鲁克酒店（9/27）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>订库车酒店（9/28）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>订阿克苏酒店（9/29）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>订喀什酒店（9/30、10/2、10/3 共 3 晚）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>订塔县酒店（10/1）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>买春秋航空行李额（9C 无免费托运）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>办边防证（两人·户籍地派出所免费办）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>哈啰租车驾驶员认证（两人）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>联系影楼确认：选纱时间、化妆时间、选片时间</div>
+  </div>
+
+  <div class="todo-group">
+    <h4>出发前完成</h4>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>门票预约：库尔德宁（"游新疆"小程序·60元/人）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>门票预约：那拉提草原</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>门票预约：巴音布鲁克草原</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>门票预约：天山神秘大峡谷</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>下载新疆离线地图（高德/百度）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>购买旅行意外险</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>出发前 1–2 天查独库公路开放公告 + 天气</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>关注春秋航班动态（台风政策）</div>
+  </div>
+
+  <div class="todo-group">
+    <h4>个人准备</h4>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>Tri：染发（如需·板栗/咖色）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>Tri：做美甲</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>Tri：备美瞳（灰/咖色）</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>Tri：提前一周每天敷面膜</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>Tri：准备裸色胸贴</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>Jill：提前一周理发</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>Jill：备隐形眼镜</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>Jill：备黑白船袜各一双</div>
+    <div class="todo-item" onclick="this.querySelector('.todo-cb').classList.toggle('done')"><div class="todo-cb"></div>Jill：备黑皮鞋</div>
+  </div>
+
+</div>
+
+<!-- Bookings -->
+<div class="tab-panel" id="tab-bookings">
+
+  <div class="sec-subtitle">大交通</div>
+  <div class="bk-row"><div class="bk-label">G84 高铁</div><div class="bk-val">9/23 19:05→22:54 上海虹桥→郑州东 <span class="bk-status ok">已出票</span></div></div>
+  <div class="bk-row"><div class="bk-label">9C7151</div><div class="bk-val">9/24 07:30→12:40 郑州新郑→伊宁 <span class="bk-status ok">已出票</span></div></div>
+  <div class="bk-row"><div class="bk-label">Z6518</div><div class="bk-val">10/4 21:30→次日09:02 喀什→乌鲁木齐 <span class="bk-status wait">候补中</span></div></div>
+  <div class="bk-row"><div class="bk-label">Z42</div><div class="bk-val">10/5 19:35→10/7 12:15 乌鲁木齐→上海 <span class="bk-status wait">候补中</span></div></div>
+
+  <div class="sec-subtitle">租车</div>
+  <div class="bk-card">哈啰租车 · 哈弗H6 · 两人自驾<br>取车：9/24 13:00 伊宁机场（送车上门）<br>还车：10/4 13:00 喀什站（上门取车）<br>免押资格已获得 · 需提前认证驾驶员</div>
+
+  <div class="sec-subtitle">酒店</div>
+  <div class="bk-card">9/24–9/25 · <b>霍城县云朵酒店</b>（清水河镇上城一品16栋1层）· 已订<br>其余 7 晚酒店待订</div>
+
+  <div class="sec-subtitle">婚纱拍摄</div>
+  <div class="bk-card"><b>知野旅拍·旅行婚礼（伊犁清水店）</b><br>霍城县清水河镇上城一品静心院10号103-104<br>9/24 选纱 · 9/25 库尔德宁拍摄 · 9/26 选片</div>
+
+</div>
+
+<!-- Reminders -->
+<div class="tab-panel" id="tab-reminders">
+
+  <div class="alert"><strong>独库公路可能封闭</strong> — 近年 10 月上旬封闭，9 月底遇降雪随时封路。出发前查"独库公路"公众号/新疆交警。备选：巴音布鲁克→和静→库尔勒→库车。</div>
+  <div class="alert"><strong>边防证必须办</strong> — 白沙湖、喀拉库勒湖、塔县都需边防证。目的地填：<b>塔什库尔干塔吉克自治县、克孜勒苏柯尔克孜自治州阿克陶县</b>。建议户籍地派出所免费办。</div>
+  <div class="alert"><strong>温差与高反</strong> — 巴音布鲁克夜温≈0℃，帕米尔海拔 3000–4000m。冲锋衣随身带，到喀什买氧气瓶。帕米尔段缓行。</div>
+  <div class="alert"><strong>加油</strong> — 每天出发前加满。独库南段和 G314 沿途加油站稀疏，巴音布鲁克、塔县出发前务必满油。离线地图提前下载。</div>
+  <div class="alert"><strong>时差与国庆人流</strong> — 新疆作息比内地晚约 2h，日落约 20:00–20:30。10/1–10/3 喀什、那拉提游客密集，门票酒店务必提前订。氧气瓶不能上飞机，到喀什当地药店买。</div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+/* ===== Firebase 配置 =====
+   前往 https://console.firebase.google.com 创建项目
+   → Realtime Database → 创建数据库（测试模式）
+   → 项目设置 → 添加应用 → Web → 复制配置替换下方
+   ================================== */
+var firebaseConfig = {
+  apiKey: "AIzaSyD-PLACEHOLDER",
+  authDomain: "PLACEHOLDER.firebaseapp.com",
+  databaseURL: "https://PLACEHOLDER-default-rtdb.firebaseio.com",
+  projectId: "PLACEHOLDER",
+  storageBucket: "PLACEHOLDER.appspot.com",
+  messagingSenderId: "000000000000",
+  appId: "1:000000000000:web:PLACEHOLDER"
+};
+
+var fbReady = false;
+var db = null;
+var roomId = window.location.hash.slice(1) || generateRoomId();
+var checksums = {};
+var syncPending = false;
+
+if (firebaseConfig.apiKey.indexOf('PLACEHOLDER') === -1) {
+  firebase.initializeApp(firebaseConfig);
+  db = firebase.database();
+  fbReady = true;
+}
+
+function generateRoomId() {
+  return 'xj-' + Math.random().toString(36).slice(2, 8);
+}
+
+/* Tab switching */
+document.querySelectorAll('.tab-nav button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var tab = this.getAttribute('data-tab');
+    document.querySelectorAll('.tab-nav button').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+    this.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+    saveState();
+  });
+});
+
+/* Checkbox toggle */
+document.querySelectorAll('.todo-item').forEach(function(item, i){
+  item.setAttribute('data-idx', i);
+  item.addEventListener('click', function(e){
+    var cb = this.querySelector('.todo-cb');
+    cb.classList.toggle('done');
+    saveState();
+    if (fbReady) syncToFirebase();
+  });
+});
+
+/* Save state to localStorage */
+function saveState() {
+  var state = { room: roomId };
+  state.tab = document.querySelector('.tab-nav button.active') ? document.querySelector('.tab-nav button.active').getAttribute('data-tab') : 'itinerary';
+  state.checks = [];
+  document.querySelectorAll('.todo-cb').forEach(function(cb){
+    state.checks.push(cb.classList.contains('done'));
+  });
+  localStorage.setItem('xj-trip-state', JSON.stringify(state));
+  updateHash();
+}
+
+/* Update URL hash */
+function updateHash() {
+  var url = window.location.pathname + '#' + roomId;
+  window.history.replaceState(null, '', url);
+}
+
+/* Restore state from localStorage */
+function restoreState(state) {
+  if (!state) return;
+  if (state.tab) {
+    document.querySelectorAll('.tab-nav button').forEach(function(b){
+      b.classList.remove('active');
+      if (b.getAttribute('data-tab') === state.tab) b.classList.add('active');
+    });
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+    var tp = document.getElementById('tab-' + state.tab);
+    if (tp) tp.classList.add('active');
+  }
+  if (state.checks) {
+    document.querySelectorAll('.todo-cb').forEach(function(cb, i){
+      if (state.checks[i]) cb.classList.add('done');
+      else cb.classList.remove('done');
+    });
+  }
+}
+
+/* Sync to Firebase */
+function syncToFirebase() {
+  if (!fbReady || syncPending) return;
+  syncPending = true;
+  var state = {};
+  document.querySelectorAll('.todo-cb').forEach(function(cb, i){
+    state[i] = cb.classList.contains('done');
+  });
+  var tab = document.querySelector('.tab-nav button.active');
+  state._tab = tab ? tab.getAttribute('data-tab') : 'itinerary';
+  db.ref('rooms/' + roomId).set(state).then(function(){
+    syncPending = false;
+  }).catch(function(){
+    syncPending = false;
+  });
+}
+
+/* Listen to Firebase changes */
+function listenFirebase() {
+  if (!fbReady) return;
+  db.ref('rooms/' + roomId).on('value', function(snapshot){
+    var data = snapshot.val();
+    if (!data) return;
+    document.querySelectorAll('.todo-cb').forEach(function(cb, i){
+      if (data[i] !== undefined) {
+        if (data[i]) cb.classList.add('done');
+        else cb.classList.remove('done');
+      }
+    });
+    if (data._tab) {
+      document.querySelectorAll('.tab-nav button').forEach(function(b){
+        b.classList.remove('active');
+        if (b.getAttribute('data-tab') === data._tab) b.classList.add('active');
+      });
+      document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+      var tp = document.getElementById('tab-' + data._tab);
+      if (tp) tp.classList.add('active');
+    }
+    saveState();
+  });
+}
+
+/* Init */
+(function init(){
+  var saved = localStorage.getItem('xj-trip-state');
+  if (saved) {
+    try {
+      var state = JSON.parse(saved);
+      if (state.room === roomId) {
+        restoreState(state);
+      }
+    } catch(e) {}
+  }
+  if (fbReady) {
+    listenFirebase();
+    syncToFirebase();
+  }
+  updateHash();
+})();
+
+/* Copy link button */
+(function(){
+  var btn = document.createElement('div');
+  btn.style.cssText = 'position:fixed;bottom:calc(20px + env(safe-area-inset-bottom, 0px));right:16px;z-index:100;width:44px;height:44px;border-radius:22px;background:var(--c1);color:var(--cw);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,0.15);transition:transform 0.15s;-webkit-tap-highlight-color:transparent;';
+  btn.textContent = '📋';
+  btn.title = '复制分享链接';
+  btn.addEventListener('click', function(){
+    var url = window.location.href.split('#')[0] + '#' + roomId;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(function(){
+        showToast('链接已复制！发送给对方即可同步');
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      showToast('链接已复制！发送给对方即可同步');
+    }
+  });
+  btn.addEventListener('touchstart', function(){ this.style.transform = 'scale(0.9)'; });
+  btn.addEventListener('touchend', function(){ this.style.transform = 'scale(1)'; });
+  document.body.appendChild(btn);
+})();
+
+function showToast(msg) {
+  var t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;top:calc(80px + env(safe-area-inset-top, 0px));left:50%;transform:translateX(-50%);z-index:200;background:var(--c1);color:var(--cw);padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,0.2);pointer-events:none;opacity:0;transition:opacity 0.3s;white-space:nowrap;';
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){ t.style.opacity = '1'; });
+  setTimeout(function(){
+    t.style.opacity = '0';
+    setTimeout(function(){ document.body.removeChild(t); }, 300);
+  }, 2000);
+}
+</script>
+</body>
+</html>
