@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>新疆婚纱旅拍 · 自驾行程</title>
+<title>Tri & Jill的自由之旅</title>
 <style>
   :root {
     --c0: #000;
@@ -100,23 +100,51 @@
   .tab-panel.active { display: block; }
 
   /* Day card */
+  .timeline { padding: 8px 0 0; }
   .day-card {
-    border: 0.5px solid var(--c6); border-radius: 10px; padding: 14px 16px;
-    margin-bottom: 8px;
+    display: flex; gap: 12px; margin-bottom: 0; position: relative;
   }
-  .day-card .dhead {
-    display: flex; justify-content: space-between; align-items: baseline;
-    margin-bottom: 4px;
+  .day-left {
+    flex: 0 0 32px; display: flex; flex-direction: column; align-items: center;
+    padding-top: 2px;
   }
-  .day-card .dnum { font-size: 16px; font-weight: 700; }
-  .day-card .ddate { font-size: 12px; color: var(--c4); }
-  .day-card .dtitle { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-  .day-card .dinfo { font-size: 14px; color: var(--c3); line-height: 1.55; }
-  .day-card .dwarn { font-size: 12px; color: #b91c1c; margin-top: 6px; line-height: 1.5; }
+  .day-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    border: 2px solid var(--c5); background: var(--cw); z-index: 1;
+  }
+  .day-dot.shoot { border-color: #b91c1c; background: #b91c1c; }
+  .day-dot.drive { border-color: var(--c1); background: var(--c1); }
+  .day-dot.city { border-color: var(--c4); background: var(--c4); }
+  .day-dot.transit { border-color: var(--c5); background: var(--cw); }
+  .day-dot.pamir { border-color: var(--c1); background: var(--c1); }
+  .day-line {
+    width: 1px; flex: 1; background: var(--c6); min-height: 16px;
+  }
+  .day-card:last-child .day-line { background: transparent; }
+  .day-body {
+    flex: 1; min-width: 0; padding-bottom: 16px;
+  }
+  .day-header {
+    display: flex; align-items: baseline; gap: 8px; margin-bottom: 2px;
+  }
+  .day-label { font-size: 13px; font-weight: 700; color: var(--c1); }
+  .day-date { font-size: 11px; color: var(--c4); }
+  .day-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--c1); }
+  .day-row {
+    display: flex; align-items: flex-start; gap: 8px; margin-bottom: 4px;
+    font-size: 13px; color: var(--c3); line-height: 1.5;
+  }
+  .day-row .ico { flex: 0 0 16px; font-size: 13px; line-height: 1.5; }
+  .day-row .txt { flex: 1; }
+  .day-row .val { font-weight: 600; color: var(--c2); }
+  .day-warn {
+    font-size: 12px; color: #b91c1c; margin-top: 4px; line-height: 1.5;
+    padding-left: 24px;
+  }
   .day-tag {
-    display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.2px;
-    padding: 3px 8px; border-radius: 5px; margin-top: 8px;
-    border: 0.5px solid var(--c5);
+    display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.3px;
+    padding: 2px 8px; border-radius: 4px; border: 0.5px solid var(--c5);
+    margin-left: 4px;
   }
   .tag-done { color: #166534; }
   .tag-warn { color: #92400e; }
@@ -184,7 +212,7 @@
 
 <div class="head-wrap">
 <div class="header">
-  <h1>新疆婚纱旅拍 · 自驾行程</h1>
+  <h1>Tri & Jill的自由之旅</h1>
   <div class="sub">上海 → 伊犁 → 独库 → 南疆 → 帕米尔 → 喀什 → 乌鲁木齐 → 上海 &nbsp;·&nbsp; 9.23 – 10.5</div>
 </div>
 
@@ -210,100 +238,174 @@
 
 <!-- Itinerary -->
 <div class="tab-panel active" id="tab-itinerary">
+<div class="timeline">
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 1</div><div class="ddate">9/23 周三</div></div>
-    <div class="dtitle">上海 → 郑州</div>
-    <div class="dinfo">19:05 上海虹桥 → 22:54 郑州东（G84 高铁，3h49m）。打车/接送机至新郑机场周边住宿。</div>
-    <div class="day-tag tag-warn">待订 · 郑州机场酒店</div>
+    <div class="day-left"><div class="day-dot transit"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 1</span><span class="day-date">9/23 周三</span></div>
+      <div class="day-title">上海 → 郑州</div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">19:05</span> 上海虹桥 → <span class="val">22:54</span> 郑州东  ·  3h49m</span></div>
+      <div class="day-row"><span class="ico">🚂</span><span class="txt">G84 高铁，打车至新郑机场周边住宿</span></div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">待订 · 郑州机场酒店<span class="day-tag tag-warn">待订</span></span></div>
+    </div>
   </div>
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 2</div><div class="ddate">9/24 周四</div></div>
-    <div class="dtitle">郑州 → 伊宁 · 取车 · 选纱</div>
-    <div class="dinfo">07:30 新郑机场起飞 → 12:40 抵伊宁机场（9C7151，5h10m）。13:00 伊宁机场取车（哈啰·哈弗H6）。13:40 驾车 40min 到清水河镇。14:30 到<b>知野旅拍</b>选纱。<br>📍 霍城县清水河镇上城一品静心院10号103-104</div>
-    <div class="day-tag tag-done">已订 · 云朵酒店（上城一品16栋1层）</div>
+    <div class="day-left"><div class="day-dot shoot"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 2</span><span class="day-date">9/24 周四</span></div>
+      <div class="day-title">郑州 → 伊宁 · 取车 · 选纱</div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">07:30</span> 新郑起飞 → <span class="val">12:40</span> 抵伊宁  ·  5h10m</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt"><span class="val">13:00</span> 伊宁机场取车（哈弗H6）→ 驾车 40min 到清水河镇</span></div>
+      <div class="day-row"><span class="ico">📸</span><span class="txt"><span class="val">14:30</span> 到知野旅拍选纱</span></div>
+      <div class="day-row"><span class="ico">📍</span><span class="txt">霍城县清水河镇上城一品静心院10号103-104</span></div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">已订 · 云朵酒店（上城一品16栋1层）<span class="day-tag tag-done">已订</span></span></div>
+    </div>
   </div>
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 3</div><div class="ddate">9/25 周五</div></div>
-    <div class="dtitle">库尔德宁拍摄日</div>
-    <div class="dinfo">06:30 到店化妆。08:00 出发，驾车 3h → 11:00 到<b>库尔德宁景区</b>（巩留县）。11:00–19:00 全天拍摄。19:00 返程，驾车 3h → 22:00 回酒店。<br>携带：两人身份证、胸贴、黑白船袜、黑皮鞋、防晒霜</div>
-    <div class="day-tag tag-done">已订 · 云朵酒店</div>
+    <div class="day-left"><div class="day-dot shoot"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 3</span><span class="day-date">9/25 周五</span></div>
+      <div class="day-title">库尔德宁拍摄日</div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">06:30</span> 到店化妆 → <span class="val">08:00</span> 出发</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt">驾车 <span class="val">3h</span> → <span class="val">11:00</span> 到库尔德宁景区（巩留县）</span></div>
+      <div class="day-row"><span class="ico">📸</span><span class="txt"><span class="val">11:00 – 19:00</span> 全天拍摄</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt"><span class="val">19:00</span> 返程 3h → <span class="val">22:00</span> 回酒店</span></div>
+      <div class="day-row"><span class="ico">🎒</span><span class="txt">携带：身份证、胸贴、船袜、黑皮鞋、防晒霜</span></div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">已订 · 云朵酒店<span class="day-tag tag-done">已订</span></span></div>
+    </div>
   </div>
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 4</div><div class="ddate">9/26 周六</div></div>
-    <div class="dtitle">选片 → 那拉提</div>
-    <div class="dinfo">09:00 到知野旅拍<b>选片</b>。12:00 清水河午餐。13:00 出发，沿 G218 驾车 4h → 17:00 到<b>那拉提镇</b>。🚗 约 280km。</div>
-    <div class="day-tag tag-warn">待订 · 那拉提镇</div>
+    <div class="day-left"><div class="day-dot drive"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 4</span><span class="day-date">9/26 周六</span></div>
+      <div class="day-title">选片 → 那拉提</div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">09:00</span> 到知野旅拍选片</span></div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">13:00</span> 清水河出发 → <span class="val">17:00</span> 到那拉提镇</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt">沿 G218 行驶 <span class="val">4h</span>  ·  <span class="val">约 280km</span></span></div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">待订 · 那拉提镇<span class="day-tag tag-warn">待订</span></span></div>
+    </div>
   </div>
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 5</div><div class="ddate">9/27 周日</div></div>
-    <div class="dtitle">那拉提草原 → 巴音布鲁克</div>
-    <div class="dinfo">09:00 进<b>那拉提草原</b>（空中草原 / 河谷草原）。14:00 出发，驾车 2h → 16:00 到<b>巴音布鲁克草原</b>。18:00 进景区看九曲十八弯日落（约 20:00），注意保暖。🚗 约 80km。</div>
-    <div class="day-tag tag-warn">待订 · 巴音布鲁克镇</div>
+    <div class="day-left"><div class="day-dot drive"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 5</span><span class="day-date">9/27 周日</span></div>
+      <div class="day-title">那拉提草原 → 巴音布鲁克</div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">09:00</span> 进那拉提草原（空中草原 / 河谷草原）</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt"><span class="val">14:00</span> 出发 2h → <span class="val">16:00</span> 到巴音布鲁克</span></div>
+      <div class="day-row"><span class="ico">🌅</span><span class="txt"><span class="val">18:00</span> 进景区看九曲十八弯日落（<span class="val">20:00</span>）</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt">约 <span class="val">80km</span></span></div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">待订 · 巴音布鲁克镇<span class="day-tag tag-warn">待订</span></span></div>
+    </div>
   </div>
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 6</div><div class="ddate">9/28 周一</div></div>
-    <div class="dtitle">独库公路南段 → 库车</div>
-    <div class="dinfo">08:00 出发，走 G217 独库公路南段。沿途：铁力买提达坂、<b>大小龙池</b>。13:00 到库车。14:00–16:00 逛<b>天山神秘大峡谷</b>。🚗 约 260km，行车 5h。</div>
-    <div class="dwarn">⚠ 出发前查独库公路开放公告。若封闭：巴音布鲁克→和静→库尔勒→库车（G218+G3012，多约 2.5h）</div>
-    <div class="day-tag tag-warn">待订 · 库车</div>
+    <div class="day-left"><div class="day-dot drive"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 6</span><span class="day-date">9/28 周一</span></div>
+      <div class="day-title">独库公路南段 → 库车</div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">08:00</span> 出发，走 G217 独库公路南段</span></div>
+      <div class="day-row"><span class="ico">📍</span><span class="txt">沿途：铁力买提达坂、<b>大小龙池</b></span></div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">13:00</span> 到库车  →  <span class="val">14:00 – 16:00</span> 天山神秘大峡谷</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt">约 <span class="val">260km</span>  ·  行车 <span class="val">5h</span></span></div>
+      <div class="day-warn">⚠ 出发前查独库公路开放公告。若封闭：巴音布鲁克→和静→库尔勒→库车（G218+G3012，多约 2.5h）</div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">待订 · 库车<span class="day-tag tag-warn">待订</span></span></div>
+    </div>
   </div>
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 7</div><div class="ddate">9/29 周二</div></div>
-    <div class="dtitle">库车 → 阿克苏</div>
-    <div class="dinfo">09:00 <b>库车老城</b>（库车王府、热斯坦路）。11:00 出发，驾车 1h → 12:00 <b>克孜尔千佛洞</b>（游览 1h）。13:00 出发，驾车 2h → 15:00 <b>温宿大峡谷</b>（游览 2h）。17:00 出发，驾车 1h → 18:00 到阿克苏。🚗 约 300km。</div>
-    <div class="day-tag tag-warn">待订 · 阿克苏/温宿</div>
+    <div class="day-left"><div class="day-dot drive"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 7</span><span class="day-date">9/29 周二</span></div>
+      <div class="day-title">库车 → 阿克苏</div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">09:00</span> 库车老城（库车王府、热斯坦路）</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt"><span class="val">11:00</span> 出发 1h → <span class="val">12:00</span> 克孜尔千佛洞</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt"><span class="val">13:00</span> 出发 2h → <span class="val">15:00</span> 温宿大峡谷</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt"><span class="val">17:00</span> 出发 1h → <span class="val">18:00</span> 到阿克苏  ·  约 <span class="val">300km</span></span></div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">待订 · 阿克苏/温宿<span class="day-tag tag-warn">待订</span></span></div>
+    </div>
   </div>
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 8</div><div class="ddate">9/30 周三</div></div>
-    <div class="dtitle">阿克苏 → 喀什</div>
-    <div class="dinfo">08:00 出发，吐和高速 G3012 驾车 5h → 13:00 到<b>喀什</b>。入住后逛<b>喀什古城</b>（开城仪式、百年老茶馆、汗巴扎夜市）。🚗 约 460km。</div>
-    <div class="day-tag tag-hot">待订 · 喀什古城附近</div>
+    <div class="day-left"><div class="day-dot drive"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 8</span><span class="day-date">9/30 周三</span></div>
+      <div class="day-title">阿克苏 → 喀什</div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt"><span class="val">08:00</span> 出发，吐和高速 G3012  <span class="val">5h</span>  ·  <span class="val">约 460km</span></span></div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">13:00</span> 到喀什，入住后逛喀什古城</span></div>
+      <div class="day-row"><span class="ico">📍</span><span class="txt">开城仪式、百年老茶馆、汗巴扎夜市</span></div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">待订 · 喀什古城附近<span class="day-tag tag-hot">国庆</span></span></div>
+    </div>
   </div>
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 9</div><div class="ddate">10/1 周四</div></div>
-    <div class="dtitle">帕米尔高原 Day 1</div>
-    <div class="dinfo">08:00 喀什出发，沿 G314 中巴公路。10:00 奥依塔克红山。11:00 <b>白沙湖</b>（游览 1h）。13:00 <b>喀拉库勒湖</b>（慕士塔格峰倒影，游览 1h）。16:00 到<b>塔县</b>（石头城、金草滩日落 20:00）。🚗 约 290km，行车 5–6h。</div>
-    <div class="dwarn">⚠ 需边防证！目的地填：塔什库尔干塔吉克自治县、克孜勒苏柯尔克孜自治州阿克陶县</div>
-    <div class="day-tag tag-hot">待订 · 塔县（国庆紧张）</div>
+    <div class="day-left"><div class="day-dot pamir"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 9</span><span class="day-date">10/1 周四</span></div>
+      <div class="day-title">帕米尔高原 Day 1</div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt"><span class="val">08:00</span> 喀什出发，沿 G314 中巴友谊公路</span></div>
+      <div class="day-row"><span class="ico">📍</span><span class="txt"><span class="val">10:00</span> 奥依塔克红山  →  <span class="val">11:00</span> 白沙湖  →  <span class="val">13:00</span> 喀拉库勒湖</span></div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">16:00</span> 到塔县（石头城、金草滩日落 <span class="val">20:00</span>）</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt">约 <span class="val">290km</span>  ·  行车 <span class="val">5–6h</span></span></div>
+      <div class="day-warn">⚠ 需边防证！目的地填：塔什库尔干塔吉克自治县、克孜勒苏柯尔克孜自治州阿克陶县</div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">待订 · 塔县（国庆房源紧张）<span class="day-tag tag-hot">国庆</span></span></div>
+    </div>
   </div>
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 10</div><div class="ddate">10/2 周五</div></div>
-    <div class="dtitle">帕米尔高原 Day 2</div>
-    <div class="dinfo">09:00 出发。10:00–12:00 <b>盘龙古道</b>（"今日走过了所有弯路，从此人生尽是坦途"）。12:00 瓦罕走廊入口（可选）。13:00 返程，驾车 5h → 18:00 回到喀什。🚗 约 290km。</div>
-    <div class="day-tag tag-warn">待订 · 喀什</div>
+    <div class="day-left"><div class="day-dot pamir"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 10</span><span class="day-date">10/2 周五</span></div>
+      <div class="day-title">帕米尔高原 Day 2</div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">09:00</span> 出发 → <span class="val">10:00 – 12:00</span> 盘龙古道</span></div>
+      <div class="day-row"><span class="ico">📍</span><span class="txt">"今日走过了所有弯路，从此人生尽是坦途"</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt"><span class="val">13:00</span> 返程 5h → <span class="val">18:00</span> 回到喀什  ·  约 <span class="val">290km</span></span></div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">待订 · 喀什<span class="day-tag tag-warn">待订</span></span></div>
+    </div>
   </div>
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 11</div><div class="ddate">10/3 周六</div></div>
-    <div class="dtitle">喀什古城全天</div>
-    <div class="dinfo">10:00 艾提尕尔清真寺 → 高台民居 → 职人巴扎 → 网红机位拍照 → 买干果特产。全天步行，无需开车。</div>
-    <div class="day-tag tag-warn">待订 · 喀什</div>
+    <div class="day-left"><div class="day-dot city"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 11</span><span class="day-date">10/3 周六</span></div>
+      <div class="day-title">喀什古城全天</div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">10:00</span> 艾提尕尔清真寺 → 高台民居 → 职人巴扎</span></div>
+      <div class="day-row"><span class="ico">📍</span><span class="txt">网红机位拍照、买干果特产</span></div>
+      <div class="day-row"><span class="ico">🚶</span><span class="txt">全天步行，无需开车</span></div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">待订 · 喀什<span class="day-tag tag-warn">待订</span></span></div>
+    </div>
   </div>
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 12</div><div class="ddate">10/4 周日</div></div>
-    <div class="dtitle">还车 → 火车</div>
-    <div class="dinfo">上午古城自由活动。12:00 开车到喀什站。<b>13:00 还车</b>（哈啰上门取车）。打车回古城午餐闲逛。19:00 前回喀什站。21:30 Z6518 发车 → 乌鲁木齐（次日 09:02 到，11h32m）。</div>
-    <div class="day-tag tag-train">火车 · Z6518 喀什 21:30 → 乌市 09:02</div>
+    <div class="day-left"><div class="day-dot transit"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 12</span><span class="day-date">10/4 周日</span></div>
+      <div class="day-title">还车 → 火车</div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt">上午古城自由活动</span></div>
+      <div class="day-row"><span class="ico">🚗</span><span class="txt"><span class="val">12:00</span> 开车到喀什站 → <span class="val">13:00</span> 还车（哈啰上门取车）</span></div>
+      <div class="day-row"><span class="ico">🚂</span><span class="txt"><span class="val">21:30</span> Z6518 喀什 → 乌鲁木齐（次日 <span class="val">09:02</span> 到 · 11h32m）</span></div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">火车卧铺<span class="day-tag tag-train">火车</span></span></div>
+    </div>
   </div>
 
   <div class="day-card">
-    <div class="dhead"><div class="dnum">Day 13</div><div class="ddate">10/5 周一</div></div>
-    <div class="dtitle">乌鲁木齐 → 上海</div>
-    <div class="dinfo"><b>09:02 到乌鲁木齐</b>。寄存行李。12:00 中午<b>陪妈妈吃饭</b>。14:00–17:00 可逛国际大巴扎。18:30 前到乌鲁木齐站。19:35 Z42 发车 → 上海（10/7 12:15 到，40h40m）。</div>
-    <div class="day-tag tag-train">火车 · Z42 乌市 19:35 → 上海 10/7 12:15</div>
+    <div class="day-left"><div class="day-dot transit"></div><div class="day-line"></div></div>
+    <div class="day-body">
+      <div class="day-header"><span class="day-label">Day 13</span><span class="day-date">10/5 周一</span></div>
+      <div class="day-title">乌鲁木齐 → 上海</div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">09:02</span> 到乌鲁木齐，寄存行李</span></div>
+      <div class="day-row"><span class="ico">🍽️</span><span class="txt"><span class="val">12:00</span> 陪妈妈吃饭</span></div>
+      <div class="day-row"><span class="ico">🕐</span><span class="txt"><span class="val">14:00 – 17:00</span> 可逛国际大巴扎</span></div>
+      <div class="day-row"><span class="ico">🚂</span><span class="txt"><span class="val">18:30</span> 前到乌鲁木齐站 → <span class="val">19:35</span> Z42 发车 → 上海（10/7 <span class="val">12:15</span> 到 · 40h40m）</span></div>
+      <div class="day-row"><span class="ico">🏨</span><span class="txt">火车卧铺<span class="day-tag tag-train">火车</span></span></div>
+    </div>
   </div>
 
+</div>
 </div>
 
 <!-- Packing -->
