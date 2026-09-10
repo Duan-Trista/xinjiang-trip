@@ -210,10 +210,45 @@
     margin-bottom: 8px; font-size: 14px; color: var(--c3); line-height: 1.6;
   }
   .bk-card b { color: var(--c1); }
+
+  /* Lock screen */
+  .lock-screen {
+    position: fixed; inset: 0; z-index: 1000;
+    background: var(--cw); display: flex; align-items: center; justify-content: center;
+    padding: 24px; padding-top: var(--safe-top);
+  }
+  .lock-box { text-align: center; width: 100%; max-width: 280px; }
+  .lock-icon { font-size: 40px; margin-bottom: 16px; }
+  .lock-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .lock-sub { font-size: 13px; color: var(--c4); margin-bottom: 24px; }
+  .lock-input {
+    width: 100%; padding: 12px 16px; font-size: 16px; border: 1px solid var(--c5);
+    border-radius: 10px; outline: none; text-align: center; letter-spacing: 4px;
+    -webkit-appearance: none; background: var(--c8);
+  }
+  .lock-input:focus { border-color: var(--c1); }
+  .lock-error { font-size: 12px; color: #b91c1c; margin-top: 8px; display: none; }
+  .lock-btn {
+    width: 100%; margin-top: 16px; padding: 12px; font-size: 15px; font-weight: 600;
+    background: var(--c1); color: var(--cw); border: none; border-radius: 10px;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .lock-btn:active { opacity: 0.7; }
 </style>
 </head>
 <body>
 
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-icon">🔒</div>
+    <div class="lock-title">Tri & Jill</div>
+    <div class="lock-sub">输入密码查看行程</div>
+    <input type="password" class="lock-input" id="pwInput" placeholder="请输入密码" autocomplete="off">
+    <div class="lock-error" id="pwError"></div>
+    <button class="lock-btn" id="pwBtn">确认</button>
+  </div>
+</div>
+<div class="main-content" id="mainContent" style="display:none;">
 <div class="head-wrap">
 <div class="header">
   <h1>Tri & Jill的自由之旅</h1>
@@ -605,10 +640,37 @@
   <div class="alert"><strong>时差与国庆人流</strong> — 新疆作息比内地晚约 2h，日落约 20:00–20:30。10/1–10/3 喀什、那拉提游客密集，门票酒店务必提前订。氧气瓶不能上飞机，到喀什当地药店买。</div>
 
 </div>
+</div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
+/* ===== 密码检查 ===== */
+var PW = 'zhuzhu2026';
+(function checkAuth(){
+  var stored = sessionStorage.getItem('xj-auth');
+  if (stored === PW) {
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+    return;
+  }
+  var input = document.getElementById('pwInput');
+  var error = document.getElementById('pwError');
+  document.getElementById('pwBtn').addEventListener('click', verify);
+  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') verify(); });
+  function verify(){
+    if (input.value === PW) {
+      sessionStorage.setItem('xj-auth', PW);
+      document.getElementById('lockScreen').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+    } else {
+      error.textContent = '密码错误，请重试';
+      error.style.display = 'block';
+      input.value = '';
+    }
+  }
+})();
+
 /* ===== Firebase 配置 =====
    前往 https://console.firebase.google.com 创建项目
    → Realtime Database → 创建数据库（测试模式）
