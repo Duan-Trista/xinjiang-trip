@@ -309,6 +309,7 @@
   <button data-tab="todo">待办清单</button>
   <button data-tab="bookings">已订票务</button>
   <button data-tab="reminders">关键提醒</button>
+  <button data-tab="tips">景区建议</button>
 </div>
 </div>
 
@@ -490,6 +491,8 @@
 <!-- Packing -->
 <div class="tab-panel" id="tab-packing">
 
+  <div class="sec-subtitle">旅拍行李</div>
+
   <div class="pack-box">
     <h4>证件票务</h4>
     <ul>
@@ -571,8 +574,10 @@
       <li>耳机</li>
     </ul>
   </div>
+  <div class="sec-subtitle">自驾行李</div>
+
   <div class="pack-box">
-    <h4>自驾</h4>
+    <h4>自驾用品</h4>
     <ul>
       <li>手机离线地图（高德/百度）</li>
       <li>车载手机支架</li>
@@ -603,8 +608,8 @@
   <div class="todo-group">
     <h4>紧急</h4>
     <div class="todo-item"><div class="todo-cb done"></div>G84 高铁已出票（9/23 上海→郑州）</div>
-    <div class="todo-item"><div class="todo-cb"></div>抢票 Z6518（10/4 喀什→乌鲁木齐）</div>
-    <div class="todo-item"><div class="todo-cb"></div>抢票 Z42（10/5 乌鲁木齐→上海）</div>
+    <div class="todo-item"><div class="todo-cb"></div>抢票 Z6518（10/4 喀什→乌鲁木齐 · 9/20 开售）</div>
+    <div class="todo-item"><div class="todo-cb"></div>抢票 Z42（10/5 乌鲁木齐→上海 · 9/21 开售）</div>
     <div class="todo-item"><div class="todo-cb"></div>订 9/23 郑州机场附近酒店（已订）</div>
   </div>
 
@@ -684,7 +689,29 @@
   <div class="alert"><strong>时差与国庆人流</strong> — 新疆作息比内地晚约 2h，日落约 20:00–20:30。10/1–10/3 喀什、那拉提游客密集，门票酒店务必提前订。氧气瓶不能上飞机，到喀什当地药店买。</div>
   <div class="alert"><strong>10/2 & 10/3 住宿待定</strong> — 10/2 塔县或喀什二选一、10/3 喀什或莎车二选一，需尽早决定以便订房。</div>
   <div class="alert"><strong>阿克苏酒店</strong> — 9/29 阿克苏标注"不可取消还未预定"，建议改订可取消订单，保留行程灵活性。</div>
-  <div class="alert"><strong>火车票待开售</strong> — Z6518、Z42 待开售抢票，留意 12306 开售时间，备选航班。</div>
+  <div class="alert"><strong>火车票待开售</strong> — Z6518（10/4）9/20 开售，Z42（10/5）9/21 开售。提前14天，留意 12306，备选航班。</div>
+  <div class="alert"><strong>行李寄存</strong></div>
+  <table style="width:100%;font-size:12px;border-collapse:collapse;margin-top:4px;">
+    <tr style="border-bottom:1px solid var(--c7);"><td style="padding:6px 4px;font-weight:600;">喀什站</td><td style="padding:6px 4px;">进站口右侧寄存处 · 约10-20元/件/天</td></tr>
+    <tr style="border-bottom:1px solid var(--c7);"><td style="padding:6px 4px;font-weight:600;">乌鲁木齐站</td><td style="padding:6px 4px;">出站层寄存柜 · 约15-30元/件/天</td></tr>
+    <tr><td style="padding:6px 4px;font-weight:600;">喀什酒店</td><td style="padding:6px 4px;">退房后免费寄存前台，但10/4还车后取件绕路，建议直接存喀什站</td></tr>
+  </table>
+  <div class="alert" style="margin-top:10px;"><strong>10/4 寄存建议</strong>：还车后存喀什站→逛古城→19:00前取→进站。10/5 到乌市存出站层寄存柜→吃饭→18:00取→进站。</div>
+
+</div>
+
+<!-- Tips -->
+<div class="tab-panel" id="tab-tips">
+
+  <div class="sec-subtitle">建议跳过</div>
+  <div class="alert"><strong>克孜尔千佛洞</strong> — Day 7 顺路但国庆人多，洞窟开放有限，可替换为<b>库车大馕城</b>或早点到阿克苏休息。</div>
+  <div class="alert"><strong>温宿大峡谷</strong> — 与天山神秘大峡谷（Day 6）同质化，二选一即可。若 Day 6 去了天山神秘大峡谷，Day 7 可跳过直奔阿克苏。</div>
+
+  <div class="sec-subtitle">非常建议</div>
+  <div class="alert" style="border-left: 3px solid var(--c1);"><strong>喀什古城开城仪式</strong> — 每日 10:00 东门，必看。</div>
+  <div class="alert" style="border-left: 3px solid var(--c1);"><strong>盘龙古道</strong> — 帕米尔核心体验，"今日走过了所有弯路，从此人生尽是坦途"。</div>
+  <div class="alert" style="border-left: 3px solid var(--c1);"><strong>白沙湖 & 喀拉库勒湖</strong> — 帕米尔沿途精华，天气好时慕士塔格峰倒影绝佳。</div>
+  <div class="alert" style="border-left: 3px solid var(--c1);"><strong>独库公路南段</strong> — 一日四季，铁力买提达坂、大小龙池不容错过（天气允许的话）。</div>
 
 </div>
 </div>
@@ -770,6 +797,13 @@ function jumpToDay(id) {
   switchToTab('itinerary');
   var el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+function switchShootTab(name, btn) {
+  document.querySelectorAll('.shoot-tab').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.shoot-panel').forEach(function(p){ p.style.display = 'none'; });
+  btn.classList.add('active');
+  document.getElementById('shoot-' + name).style.display = 'block';
 }
 
 /* Checkbox toggle */
