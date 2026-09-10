@@ -71,15 +71,13 @@
 
   /* Route strip */
   .route {
-    padding: 10px 16px; margin: 0 16px; border-radius: 8px;
-    background: var(--c7); overflow-x: auto; white-space: nowrap;
-    font-size: 12px; color: var(--c3);
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    padding: 12px 16px; margin: 0 16px 10px; border-radius: 8px;
+    background: var(--c7); font-size: 12px; color: var(--c3); line-height: 2.2;
+    word-break: keep-all;
   }
-  .route::-webkit-scrollbar { display: none; }
-  .route .r { font-weight: 600; color: var(--c1); }
-  .route .sep { color: var(--c5); margin: 0 3px; }
+  .route .r { font-weight: 600; color: var(--c1); cursor: pointer; }
+  .route .sep { color: var(--c5); margin: 0 4px; }
+  .route .time { font-size: 10px; color: var(--c4); }
 
   /* Tab nav */
   .tab-nav {
@@ -263,7 +261,19 @@
 </div>
 
 <div class="route">
-  <span class="r">上海虹桥</span><span class="sep">→</span>郑州东<span class="sep">→</span>伊宁机场<span class="sep">→</span><span class="r">清水河</span><span class="sep">→</span>那拉提<span class="sep">→</span>巴音布鲁克<span class="sep">→</span>库车<span class="sep">→</span>阿克苏<span class="sep">→</span><span class="r">喀什</span><span class="sep">→</span>塔县·帕米尔<span class="sep">→</span>喀什还车<span class="sep">→</span>乌鲁木齐<span class="sep">→</span><span class="r">上海</span>
+  <span class="r" onclick="jumpToDay('day1')">上海虹桥</span><span class="time"> 9/23</span><span class="sep">→</span>
+  <span class="r" onclick="jumpToDay('day1')">郑州东</span><span class="sep">→</span>
+  <span class="r" onclick="jumpToDay('day2')">伊宁机场</span><span class="time"> 9/24</span><span class="sep">→</span>
+  <span class="r" onclick="jumpToDay('day2')">清水河</span><span class="sep">→</span>
+  <span class="r" onclick="jumpToDay('day4')">那拉提</span><span class="time"> 9/26</span><span class="sep">→</span>
+  <span class="r" onclick="jumpToDay('day5')">巴音布鲁克</span><span class="time"> 9/27</span><span class="sep">→</span>
+  <span class="r" onclick="jumpToDay('day6')">库车</span><span class="time"> 9/28</span><span class="sep">→</span>
+  <span class="r" onclick="jumpToDay('day7')">阿克苏</span><span class="time"> 9/29</span><span class="sep">→</span>
+  <span class="r" onclick="jumpToDay('day8')">喀什</span><span class="time"> 9/30</span><span class="sep">→</span>
+  <span class="r" onclick="jumpToDay('day9')">塔县·帕米尔</span><span class="time"> 10/1</span><span class="sep">→</span>
+  <span class="r" onclick="jumpToDay('day12')">喀什还车</span><span class="time"> 10/4</span><span class="sep">→</span>
+  <span class="r" onclick="jumpToDay('day13')">乌鲁木齐</span><span class="time"> 10/5</span><span class="sep">→</span>
+  <span class="r" onclick="jumpToDay('day13')">上海</span><span class="time"> 10/7</span>
 </div>
 
 <div class="tab-nav">
@@ -279,7 +289,7 @@
 <div class="tab-panel active" id="tab-itinerary">
 <div class="timeline">
 
-  <div class="day-card">
+  <div class="day-card" id="day1">
     <div class="day-left"><div class="day-dot transit"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 1</span><span class="day-date">9/23 周三</span></div>
@@ -290,7 +300,7 @@
     </div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day2">
     <div class="day-left"><div class="day-dot shoot"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 2</span><span class="day-date">9/24 周四</span></div>
@@ -304,7 +314,7 @@
     </div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day3">
     <div class="day-left"><div class="day-dot shoot"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 3</span><span class="day-date">9/25 周五</span></div>
@@ -318,7 +328,7 @@
     </div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day4">
     <div class="day-left"><div class="day-dot drive"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 4</span><span class="day-date">9/26 周六</span></div>
@@ -331,7 +341,7 @@
     </div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day5">
     <div class="day-left"><div class="day-dot drive"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 5</span><span class="day-date">9/27 周日</span></div>
@@ -345,7 +355,7 @@
     </div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day6">
     <div class="day-left"><div class="day-dot drive"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 6</span><span class="day-date">9/28 周一</span></div>
@@ -359,7 +369,7 @@
     </div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day7">
     <div class="day-left"><div class="day-dot drive"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 7</span><span class="day-date">9/29 周二</span></div>
@@ -372,7 +382,7 @@
     </div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day8">
     <div class="day-left"><div class="day-dot drive"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 8</span><span class="day-date">9/30 周三</span></div>
@@ -384,7 +394,7 @@
     </div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day9">
     <div class="day-left"><div class="day-dot pamir"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 9</span><span class="day-date">10/1 周四</span></div>
@@ -398,7 +408,7 @@
     </div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day10">
     <div class="day-left"><div class="day-dot pamir"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 10</span><span class="day-date">10/2 周五</span></div>
@@ -410,7 +420,7 @@
     </div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day11">
     <div class="day-left"><div class="day-dot city"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 11</span><span class="day-date">10/3 周六</span></div>
@@ -422,7 +432,7 @@
     </div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day12">
     <div class="day-left"><div class="day-dot transit"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 12</span><span class="day-date">10/4 周日</span></div>
@@ -434,7 +444,7 @@
     </div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day13">
     <div class="day-left"><div class="day-dot transit"></div><div class="day-line"></div></div>
     <div class="day-body">
       <div class="day-header"><span class="day-label">Day 13</span><span class="day-date">10/5 周一</span></div>
@@ -720,14 +730,25 @@ function generateRoomId() {
 /* Tab switching */
 document.querySelectorAll('.tab-nav button').forEach(function(btn){
   btn.addEventListener('click', function(){
-    var tab = this.getAttribute('data-tab');
-    document.querySelectorAll('.tab-nav button').forEach(function(b){ b.classList.remove('active'); });
-    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
-    this.classList.add('active');
-    document.getElementById('tab-' + tab).classList.add('active');
+    switchToTab(this.getAttribute('data-tab'));
     saveState();
   });
 });
+
+function switchToTab(tab) {
+  document.querySelectorAll('.tab-nav button').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  var btn = document.querySelector('.tab-nav button[data-tab="' + tab + '"]');
+  if (btn) btn.classList.add('active');
+  var panel = document.getElementById('tab-' + tab);
+  if (panel) panel.classList.add('active');
+}
+
+function jumpToDay(id) {
+  switchToTab('itinerary');
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
 
 /* Checkbox toggle */
 document.querySelectorAll('.todo-item').forEach(function(item, i){
