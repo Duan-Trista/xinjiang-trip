@@ -236,6 +236,20 @@
   }
   .bk-card b { color: var(--c1); }
 
+  /* Quick nav */
+  .quick-nav {
+    display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 10px;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none; position: sticky; top: 0;
+    background: var(--cw); z-index: 4;
+  }
+  .quick-nav::-webkit-scrollbar { display: none; }
+  .quick-nav a {
+    flex-shrink: 0; padding: 5px 10px; font-size: 11px; font-weight: 500;
+    border: 0.5px solid var(--c5); border-radius: 12px; color: var(--c3);
+    text-decoration: none; white-space: nowrap; -webkit-tap-highlight-color: transparent;
+  }
+  .quick-nav a:active { background: var(--c7); }
+
   /* Lock screen */
   .lock-screen {
     position: fixed; inset: 0; z-index: 1000;
@@ -607,7 +621,15 @@
     <strong>火车票候补是最大风险</strong> — Z6518、Z42 候补中。如失败：Z42 改订乌市飞上海航班；Z6518 改订喀什飞乌市航班。
   </div>
 
-  <div class="todo-group">
+  <div class="quick-nav">
+    <a href="#todo-urgent">紧急</a>
+    <a href="#todo-week">本周</a>
+    <a href="#todo-before">出发前</a>
+    <a href="#todo-personal">个人准备</a>
+    <a href="#todo-buy">购买</a>
+  </div>
+
+  <div class="todo-group" id="todo-urgent">
     <h4>紧急</h4>
     <div class="todo-item"><div class="todo-cb done"></div>G84 高铁已出票（9/23 上海→郑州）</div>
     <div class="todo-item"><div class="todo-cb"></div>抢票 Z6518（10/4 喀什→乌鲁木齐 · 9/20 开售）</div>
@@ -615,7 +637,7 @@
     <div class="todo-item"><div class="todo-cb"></div>订 9/23 郑州机场附近酒店（已订）</div>
   </div>
 
-  <div class="todo-group">
+  <div class="todo-group" id="todo-week">
     <h4>本周内完成</h4>
     <div class="todo-item"><div class="todo-cb done"></div>订那拉提酒店（9/26）</div>
     <div class="todo-item"><div class="todo-cb done"></div>订巴音布鲁克酒店（9/27）</div>
@@ -631,7 +653,7 @@
     <div class="todo-item"><div class="todo-cb"></div>联系影楼确认：选纱时间、化妆时间、选片时间</div>
   </div>
 
-  <div class="todo-group">
+  <div class="todo-group" id="todo-before">
     <h4>出发前完成</h4>
     <div class="todo-item"><div class="todo-cb"></div>门票预约：库尔德宁（"游新疆"小程序·60元/人）</div>
     <div class="todo-item"><div class="todo-cb"></div>门票预约：那拉提草原</div>
@@ -643,7 +665,7 @@
     <div class="todo-item"><div class="todo-cb"></div>关注春秋航班动态（台风政策）</div>
   </div>
 
-  <div class="todo-group">
+  <div class="todo-group" id="todo-personal">
     <h4>个人准备</h4>
     <div class="todo-item"><div class="todo-cb"></div>Tri：做美甲</div>
     <div class="todo-item"><div class="todo-cb"></div>Tri：提前一周每天敷面膜</div>
@@ -654,7 +676,7 @@
     <div class="todo-item"><div class="todo-cb"></div>备晕车药</div>
   </div>
 
-  <div class="todo-group">
+  <div class="todo-group" id="todo-buy">
     <h4>购买清单</h4>
     <div class="todo-item"><div class="todo-cb"></div>颈枕</div>
     <div class="todo-item"><div class="todo-cb"></div>鼻毛修剪器</div>
