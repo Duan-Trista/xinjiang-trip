@@ -62,12 +62,12 @@
   /* Stats */
   .stats {
     display: grid; grid-template-columns: repeat(4, 1fr);
-    padding: 12px 16px; gap: 8px;
+    padding: 8px 16px; gap: 6px;
     background: var(--cw);
   }
   .stat { text-align: center; }
-  .stat .num { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
-  .stat .lbl { font-size: 10px; color: var(--c4); margin-top: 2px; }
+  .stat .num { font-size: 17px; font-weight: 700; letter-spacing: -0.5px; }
+  .stat .lbl { font-size: 9px; color: var(--c4); margin-top: 1px; }
 
   /* Route strip */
   .route {
@@ -238,10 +238,16 @@
 
   /* Quick nav */
   .quick-nav {
-    display: flex; gap: 6px; overflow-x: auto; padding: 8px 0 10px;
+    display: flex; gap: 6px; overflow-x: auto;
     -webkit-overflow-scrolling: touch; scrollbar-width: none;
-    position: sticky; top: 170px; z-index: 3; background: var(--cw);
+  }
+  .quick-nav:not(.dynamic) {
+    position: sticky; top: 160px; z-index: 3; background: var(--cw);
     margin: 0 -16px; padding: 8px 16px 10px;
+  }
+  .quick-nav.dynamic {
+    position: sticky; top: 155px; z-index: 3; background: var(--cw);
+    margin: 0 -16px; padding: 6px 16px 8px;
   }
   .quick-nav::-webkit-scrollbar { display: none; }
   .quick-nav a {
@@ -304,19 +310,7 @@
 </div>
 
 <div class="route">
-  <span class="r" onclick="jumpToDay('day1')">上海虹桥</span><span class="time"> 9/23</span><span class="sep">→</span>
-  <span class="r" onclick="jumpToDay('day1')">郑州东</span><span class="sep">→</span>
-  <span class="r" onclick="jumpToDay('day2')">伊宁机场</span><span class="time"> 9/24</span><span class="sep">→</span>
-  <span class="r" onclick="jumpToDay('day2')">清水河</span><span class="sep">→</span>
-  <span class="r" onclick="jumpToDay('day4')">那拉提</span><span class="time"> 9/26</span><span class="sep">→</span>
-  <span class="r" onclick="jumpToDay('day5')">巴音布鲁克</span><span class="time"> 9/27</span><span class="sep">→</span>
-  <span class="r" onclick="jumpToDay('day6')">库车</span><span class="time"> 9/28</span><span class="sep">→</span>
-  <span class="r" onclick="jumpToDay('day7')">阿克苏</span><span class="time"> 9/29</span><span class="sep">→</span>
-  <span class="r" onclick="jumpToDay('day8')">喀什</span><span class="time"> 9/30</span><span class="sep">→</span>
-  <span class="r" onclick="jumpToDay('day9')">塔县·帕米尔</span><span class="time"> 10/1</span><span class="sep">→</span>
-  <span class="r" onclick="jumpToDay('day12')">喀什还车</span><span class="time"> 10/4</span><span class="sep">→</span>
-  <span class="r" onclick="jumpToDay('day13')">乌鲁木齐</span><span class="time"> 10/5</span><span class="sep">→</span>
-  <span class="r" onclick="jumpToDay('day13')">上海</span><span class="time"> 10/7</span>
+  <span class="r" onclick="jumpToDay('day1')">上海虹桥</span><span class="sep">→</span><span class="r" onclick="jumpToDay('day1')">郑州</span><span class="sep">→</span><span class="r" onclick="jumpToDay('day2')">伊宁</span><span class="time">9/24</span><span class="sep">→</span><span class="r" onclick="jumpToDay('day2')">清水河</span><span class="sep">→</span><span class="r" onclick="jumpToDay('day4')">那拉提</span><span class="time">9/26</span><span class="sep">→</span><span class="r" onclick="jumpToDay('day5')">巴音布鲁克</span><span class="time">9/27</span><span class="sep">→</span><span class="r" onclick="jumpToDay('day6')">库车</span><span class="time">9/28</span><span class="sep">→</span><span class="r" onclick="jumpToDay('day7')">阿克苏</span><span class="time">9/29</span><span class="sep">→</span><span class="r" onclick="jumpToDay('day8')">喀什</span><span class="time">9/30</span><span class="sep">→</span><span class="r" onclick="jumpToDay('day9')">塔县</span><span class="time">10/1</span><span class="sep">→</span><span class="r" onclick="jumpToDay('day12')">喀什还车</span><span class="time">10/4</span><span class="sep">→</span><span class="r" onclick="jumpToDay('day13')">乌鲁木齐</span><span class="time">10/5</span><span class="sep">→</span><span class="r" onclick="jumpToDay('day13')">上海</span><span class="time">10/7</span>
 </div>
 
 <div class="tab-nav">
@@ -507,7 +501,7 @@
 <!-- Packing -->
 <div class="tab-panel" id="tab-packing">
 
-  <div class="sec-subtitle">旅拍行李</div>
+  <div class="sec-subtitle" id="sec-shoot-travel">旅拍行李</div>
 
   <div class="pack-box">
     <h4>证件票务</h4>
@@ -591,7 +585,7 @@
       <li>耳机</li>
     </ul>
   </div>
-  <div class="sec-subtitle">自驾行李</div>
+  <div class="sec-subtitle" id="sec-drive-bag">自驾行李</div>
 
   <div class="pack-box">
     <h4>自驾用品</h4>
@@ -698,16 +692,16 @@
 <!-- Bookings -->
 <div class="tab-panel" id="tab-bookings">
 
-  <div class="sec-subtitle">大交通</div>
+  <div class="sec-subtitle" id="sec-transport">大交通</div>
   <div class="bk-row"><div class="bk-label">G84 高铁</div><div class="bk-val">9/23 19:05→22:54 上海虹桥→郑州东 <span class="bk-status ok">已出票</span></div></div>
   <div class="bk-row"><div class="bk-label">9C7151</div><div class="bk-val">9/24 07:30→12:40 郑州新郑→伊宁 <span class="bk-status ok">已出票</span></div></div>
   <div class="bk-row"><div class="bk-label">Z6518</div><div class="bk-val">10/4 21:30→次日09:02 喀什→乌鲁木齐 <span class="bk-status wait">候补中</span></div></div>
   <div class="bk-row"><div class="bk-label">Z42</div><div class="bk-val">10/5 19:35→10/7 12:15 乌鲁木齐→上海 <span class="bk-status wait">候补中</span></div></div>
 
-  <div class="sec-subtitle">租车</div>
+  <div class="sec-subtitle" id="sec-rental">租车</div>
   <div class="bk-card">哈啰租车 · 哈弗H6 · 两人自驾<br>取车：9/24 13:00 伊宁机场（送车上门）<br>还车：10/4 13:00 喀什站（上门取车）<br>免押资格已获得 · 需提前认证驾驶员</div>
 
-  <div class="sec-subtitle">酒店</div>
+  <div class="sec-subtitle" id="sec-hotel">酒店</div>
   <div class="bk-card"><b>9/23 · 凯尼恩酒店</b>（新郑国际机场店）<br>新郑金港大道198号 · 特惠大床房<br>08:00入住/14:00退房 · 当日23:59前免费取消 · <span class="bk-status ok">已订</span></div>
   <div class="bk-card"><b>9/24–9/25 · 季枫国际酒店</b>（霍城清水河店）<br>清水河镇上海北路18号 · 枫雅大床房 · 2晚 · 入住报 <b>TQBH7G473</b><br>10:00入住/14:00前退房 · 早餐 ¥38/人 · <span class="bk-status ok">已订</span></div>
   <div class="bk-card"><b>9/26 · 那拉提茶香丽舍客栈</b><br>那拉提镇天马西街9巷005号 · 山景亲子间（1.5m+1.2m床）<br>含2份早餐 · 13:00入住 · ⚠ 9/25 10:00前免费取消 · <span class="bk-status ok">已订</span></div>
@@ -715,7 +709,7 @@
   <div class="bk-card"><b>9/28 · 库车觅疆桥舍民宿</b>（库车王府店）<br>库车热斯坦街道林基路社区2巷5号 · 阳光双床房（2张1.35m床）<br>10:30入住 · 落地窗+独立阳台 · 当日18:00前免费取消 · <span class="bk-status ok">已订</span></div>
   <div class="bk-card"><b>9/29 · 阿克苏</b> — 未订（不可取消还未预定）<br><b>9/30 · 喀什古城</b> — 未订<br><b>10/1 · 塔县</b> — 未订<br><b>10/2 · 塔县或喀什</b> — 未订（二选一）<br><b>10/3 · 喀什或莎车</b> — 未订（二选一）</div>
 
-  <div class="sec-subtitle">婚纱拍摄</div>
+  <div class="sec-subtitle" id="sec-photo">婚纱拍摄</div>
   <div class="bk-card"><b>知野旅拍·旅行婚礼（伊犁清水店）</b><br>霍城县清水河镇上城一品静心院10号103-104<br>9/24 选纱 · 9/25 库尔德宁拍摄 · 9/26 选片</div>
 
 </div>
@@ -804,6 +798,12 @@ var firebaseConfig = {
 var fbReady = false;
 var db = null;
 var roomId = window.location.hash.slice(1) || generateRoomId();
+var stateStr = '';
+if (roomId.indexOf('-') > -1) {
+  var parts = roomId.split('-');
+  roomId = parts[0];
+  stateStr = parts.slice(1).join('-');
+}
 var checksums = {};
 var syncPending = false;
 
@@ -832,6 +832,32 @@ function switchToTab(tab) {
   if (btn) btn.classList.add('active');
   var panel = document.getElementById('tab-' + tab);
   if (panel) panel.classList.add('active');
+  buildQuickNav(tab);
+}
+
+function buildQuickNav(tab) {
+  var old = document.querySelector('.quick-nav.dynamic');
+  if (old) old.remove();
+  var panel = document.getElementById('tab-' + tab);
+  if (!panel) return;
+  if (panel.querySelector('.quick-nav:not(.dynamic)')) return;
+  var headers = panel.querySelectorAll('.sec-subtitle[id], .todo-group[id] h4');
+  if (headers.length < 2) return;
+  var nav = document.createElement('div');
+  nav.className = 'quick-nav dynamic';
+  headers.forEach(function(h, i){
+    var a = document.createElement('a');
+    var targetId = h.parentElement.id || h.id;
+    a.href = '#' + targetId;
+    a.textContent = (h.textContent || h.innerText).slice(0, 4);
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var el = document.getElementById(targetId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+    nav.appendChild(a);
+  });
+  panel.insertBefore(nav, panel.firstChild);
 }
 
 function jumpToDay(id) {
@@ -940,11 +966,17 @@ function listenFirebase() {
 
 /* Init */
 (function init(){
+  if (stateStr) {
+    document.querySelectorAll('.todo-cb').forEach(function(cb, i){
+      if (stateStr[i] === '1') cb.classList.add('done');
+      else cb.classList.remove('done');
+    });
+  }
   var saved = localStorage.getItem('xj-trip-state');
   if (saved) {
     try {
       var state = JSON.parse(saved);
-      if (state.room === roomId) {
+      if (state.room === roomId && !stateStr) {
         restoreState(state);
       }
     } catch(e) {}
@@ -963,17 +995,21 @@ function listenFirebase() {
   btn.textContent = '📋';
   btn.title = '复制分享链接';
   btn.addEventListener('click', function(){
-    var url = window.location.href.split('#')[0] + '#' + roomId;
+    var state = '';
+    document.querySelectorAll('.todo-cb').forEach(function(cb, i){
+      if (cb.classList.contains('done')) state += '1'; else state += '0';
+    });
+    var url = window.location.href.split('#')[0] + '#' + roomId + '-' + state;
     if (navigator.clipboard) {
       navigator.clipboard.writeText(url).then(function(){
-        showToast('链接已复制！发送给对方即可同步');
+        showToast('链接已复制！勾选状态已同步');
       });
     } else {
       var ta = document.createElement('textarea');
       ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
       document.body.appendChild(ta); ta.select();
       document.execCommand('copy'); document.body.removeChild(ta);
-      showToast('链接已复制！发送给对方即可同步');
+      showToast('链接已复制！勾选状态已同步');
     }
   });
   btn.addEventListener('touchstart', function(){ this.style.transform = 'scale(0.9)'; });
