@@ -238,16 +238,9 @@
 
   /* Quick nav */
   .quick-nav {
-    display: flex; gap: 6px; overflow-x: auto;
+    display: flex; gap: 6px; overflow-x: auto; padding: 6px 16px 8px;
     -webkit-overflow-scrolling: touch; scrollbar-width: none;
-  }
-  .quick-nav:not(.dynamic) {
-    position: sticky; top: 160px; z-index: 11; background: var(--cw);
-    margin: 0 -16px; padding: 8px 16px 10px;
-  }
-  .quick-nav.dynamic {
-    position: sticky; top: 155px; z-index: 11; background: var(--cw);
-    margin: 0 -16px; padding: 6px 16px 8px;
+    background: var(--cw); border-bottom: 0.5px solid var(--c6);
   }
   .quick-nav::-webkit-scrollbar { display: none; }
   .quick-nav a {
@@ -836,28 +829,31 @@ function switchToTab(tab) {
 }
 
 function buildQuickNav(tab) {
-  var old = document.querySelector('.quick-nav.dynamic');
+  var old = document.querySelector('.quick-nav');
   if (old) old.remove();
   var panel = document.getElementById('tab-' + tab);
   if (!panel) return;
-  if (panel.querySelector('.quick-nav:not(.dynamic)')) return;
-  var headers = panel.querySelectorAll('.sec-subtitle[id], .todo-group[id] h4');
+  var headers = panel.querySelectorAll('.sec-subtitle, .todo-group[id] h4');
   if (headers.length < 2) return;
   var nav = document.createElement('div');
-  nav.className = 'quick-nav dynamic';
+  nav.className = 'quick-nav';
   headers.forEach(function(h, i){
     var a = document.createElement('a');
-    var targetId = h.parentElement.id || h.id;
+    var targetId = h.parentElement.id || h.closest('[id]').id;
     a.href = '#' + targetId;
     a.textContent = (h.textContent || h.innerText).slice(0, 4);
     a.addEventListener('click', function(e){
       e.preventDefault();
-      var el = document.getElementById(targetId);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      switchToTab(tab);
+      setTimeout(function(){
+        var el = document.getElementById(targetId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
     });
     nav.appendChild(a);
   });
-  panel.insertBefore(nav, panel.firstChild);
+  var headWrap = document.querySelector('.head-wrap');
+  headWrap.appendChild(nav);
 }
 
 function jumpToDay(id) {
