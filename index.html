@@ -825,35 +825,8 @@ function switchToTab(tab) {
   if (btn) btn.classList.add('active');
   var panel = document.getElementById('tab-' + tab);
   if (panel) panel.classList.add('active');
-  buildQuickNav(tab);
 }
 
-function buildQuickNav(tab) {
-  var old = document.querySelector('.quick-nav');
-  if (old) old.remove();
-  var panel = document.getElementById('tab-' + tab);
-  if (!panel) return;
-  var headers = panel.querySelectorAll('.sec-subtitle, .todo-group[id] h4');
-  if (headers.length < 2) return;
-  var nav = document.createElement('div');
-  nav.className = 'quick-nav';
-  headers.forEach(function(h, i){
-    var a = document.createElement('a');
-    var targetId = h.parentElement.id || h.closest('[id]').id;
-    a.href = '#' + targetId;
-    a.textContent = (h.textContent || h.innerText).slice(0, 4);
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      switchToTab(tab);
-      setTimeout(function(){
-        var el = document.getElementById(targetId);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 50);
-    });
-    nav.appendChild(a);
-  });
-  var headWrap = document.querySelector('.head-wrap');
-  headWrap.appendChild(nav);
 }
 
 function jumpToDay(id) {
